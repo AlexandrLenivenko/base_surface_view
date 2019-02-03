@@ -8,7 +8,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.SurfaceView
-import java.lang.Exception
 
 abstract class BaseCustomSurfaceView @JvmOverloads constructor(
         context: Context,
@@ -18,7 +17,7 @@ abstract class BaseCustomSurfaceView @JvmOverloads constructor(
     private var thread: Thread? = null
     private var isItOk = false
     protected var needRedraw = true
-    private val paint: Paint = Paint()
+    protected val paint: Paint = Paint()
 
     init {
         paint.strokeWidth = 20f
@@ -36,6 +35,7 @@ abstract class BaseCustomSurfaceView @JvmOverloads constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun resume() {
+        needRedraw = true
         isItOk = true
         thread = Thread(this).apply { start() }
     }
